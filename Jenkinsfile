@@ -12,11 +12,21 @@ pipeline {
         sh 'npm install'
       }
     }
-    stage('Browser Tests') {
+    stage('Static Analysis') {
+      steps {
+        sh 'echo "sonarCube"'
+      }
+    }
+    stage('Unit Tests (Karma)') {
+      steps {
+        sh 'echo "sonaCube"'
+      }
+    }    
+    stage('Functional Tests (BrowserStack)') {
       parallel {
-        stage('Test') {
+        stage('IE') {
           steps {
-            sh './jenkins/scripts/test.sh'
+            sh 'echo "test IE"'
           }
         }
         stage('Safari') {
@@ -29,13 +39,6 @@ pipeline {
             sh 'Echo "Chrome"'
           }
         }
-      }
-    }
-    stage('Static Analysis') {
-      steps {
-        sh './jenkins/scripts/deliver.sh'
-        input 'Finished using the web site? (Click "Proceed" to continue)'
-        sh './jenkins/scripts/kill.sh'
       }
     }
   }
